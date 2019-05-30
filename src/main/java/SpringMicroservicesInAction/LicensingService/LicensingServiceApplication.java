@@ -1,13 +1,13 @@
-package SpringMicroservicesInAction.LicenseService;
+package SpringMicroservicesInAction.LicensingService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LicenseServiceApplication {
+public class LicensingServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LicenseServiceApplication.class, args);
+		SpringApplication.run(LicensingServiceApplication.class, args);
 	}
 
 }

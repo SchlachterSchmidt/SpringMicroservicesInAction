@@ -1,4 +1,4 @@
-package SpringMicroservicesInAction.LicenseService.models;
+package SpringMicroservicesInAction.LicensingService.models;
 
 public class License {
 
