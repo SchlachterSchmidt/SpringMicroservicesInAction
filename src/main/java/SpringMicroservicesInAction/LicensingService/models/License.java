@@ -1,10 +1,25 @@
 package SpringMicroservicesInAction.LicensingService.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "licenses")
 public class License {
 
+    @Id
+    @Column(name = "license_id")
     private String licenseId;
+
+    @Column(name = "organization_id")
     private String organizationId;
+
+    @Column(name = "product_name")
     private String productName;
+
+    @Column(name = "license_type")
     private String licenseType;
 
     public String getLicenseId() {
