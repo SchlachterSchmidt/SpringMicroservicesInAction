@@ -1,9 +1,11 @@
 version: "3.7"
 services:
   configservice:
-    image: configservice:1
+    image: configservice:latest
     ports:
       - "8888:8888"
+    environment:
+      ENCRYPT_KEY: "IMSYMMETRIC"
   database:
     build:
       context: ../../
@@ -25,3 +27,4 @@ services:
       CONFIGSERVER_URI: "http://configservice:8888"
       CONFIGSERVER_PORT:   "8888"
       DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY: "IMSYMMETRIC"
