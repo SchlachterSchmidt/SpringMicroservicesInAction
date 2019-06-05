@@ -57,7 +57,7 @@ logging:
     org.springframework.web: WARN
     SpringMicroservicesInAction.OrganizationService: DEBUG
 
-security:
-  oauth2:
-    resource:
-      userInfoUri: "http://authenticationservice:8901/user"
+#security:
+#  oauth2:
+#    resource:
+#      userInfoUri: "http://authenticationservice:8901/user/"
