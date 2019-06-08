@@ -1,6 +1,8 @@
 package SpringMicroservicesInAction.LicensingService.services;
 
 import SpringMicroservicesInAction.LicensingService.clients.OrganizationDiscoveryClient;
+import SpringMicroservicesInAction.LicensingService.clients.OrganizationFeignClient;
+import SpringMicroservicesInAction.LicensingService.clients.OrganizationRestTemplateClient;
 import SpringMicroservicesInAction.LicensingService.config.ServiceConfig;
 import SpringMicroservicesInAction.LicensingService.models.License;
 import SpringMicroservicesInAction.LicensingService.models.Organization;
@@ -25,6 +27,12 @@ public class LicenseService {
     @Autowired
     private OrganizationDiscoveryClient organizationDiscoveryClient;
 
+    @Autowired
+    private OrganizationRestTemplateClient organizationRestTemplateClient;
+
+    @Autowired
+    private OrganizationFeignClient organizationFeignClient;
+
     public License getLicense(String organizationId, String licenseId, ClientType clientType) {
 
         Organization organization = retrieveOrgInfo(organizationId, clientType);
@@ -45,8 +53,10 @@ public class LicenseService {
                 organization = organizationDiscoveryClient.getOrganization(organizationId);
                 break;
             case REST:
+                organization = organizationRestTemplateClient.getOrganization(organizationId);
                 break;
             case FEIGN:
+                organization = organizationFeignClient.getOrganization(organizationId);
                 break;
         }
 
