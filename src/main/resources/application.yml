@@ -1,3 +1,4 @@
+# this is the default config that will be loaded in case the config service does not provide a config
 spring:
   cloud:
     config:
@@ -15,6 +16,9 @@ spring:
     properties:
       hibernate:
         dialect: "org.hibernate.dialect.PostgreSQLDialect"
+        jdbc:
+          lob:
+            non_contextual_creation: true
   datasource:
     platform: "postgres"
     url: "jdbc:postgresql://organizationservice_database:5432/organizations"
