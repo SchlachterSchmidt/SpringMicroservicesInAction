@@ -8,7 +8,7 @@ spring:
           registerWithEureka: true
           fetchRegistry: true
           serviceUrl:
-            defaultZone: http://eurekaservice:8761/eureka/
+            defaultZone: "http://eurekaservice:8761/eureka/"
   jpa:
     database: "POSTGRESQL"
     show-sql: "true"
