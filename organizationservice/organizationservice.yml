@@ -7,7 +7,7 @@ spring:
         dialect: "org.hibernate.dialect.PostgreSQLDialect"
   datasource:
     platform: "postgres"
-    url: "jdbc:postgresql://192.168.99.100:5432/organizations"
+    url: "jdbc:postgresql://organizationservice_database:5432/organizations"
     username: "postgres"
     password: "p0stgr@s"
     testWhileIdle: "true"
