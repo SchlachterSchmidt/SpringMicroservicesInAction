@@ -6,7 +6,7 @@ services:
       - "8888:8888"
     environment:
       ENCRYPT_KEY: "IMSYMMETRIC"
-  database:
+  licensingservice_database:
     build:
       context: ../../
       dockerfile: docker/common/Database-Dockerfile
@@ -15,7 +15,7 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "p0stgr@s"
-      POSTGRES_DB:       "eagle_eye_local"
+      POSTGRES_DB:       "licenses"
   licensingservice:
     build:
       context: ../../

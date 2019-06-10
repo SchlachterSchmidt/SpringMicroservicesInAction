@@ -8,10 +8,8 @@ import SpringMicroservicesInAction.LicensingService.models.License;
 import SpringMicroservicesInAction.LicensingService.models.Organization;
 import SpringMicroservicesInAction.LicensingService.repository.LicenseRepository;
 import SpringMicroservicesInAction.LicensingService.types.ClientType;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.UUID;
 
