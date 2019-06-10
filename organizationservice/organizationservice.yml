@@ -1,14 +1,6 @@
 spring:
-  cloud:
-    config:
-      eureka:
-        instance:
-          preferIpAddress: true
-        client:
-          registerWithEureka: true
-          fetchRegistry: true
-          serviceUrl:
-            defaultZone: "http://eurekaservice:8761/eureka/"
+  # cloud:
+  #   config:
   jpa:
     database: "POSTGRESQL"
     show-sql: "true"
@@ -29,3 +21,11 @@ spring:
     driverClassName: "org.postgresql.Driver"
 example:
   property: "I AM THE DEFAULT"
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: "http://eurekaservice:8761/eureka/"
