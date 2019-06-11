@@ -1,0 +1,30 @@
+# this is the local config that will only be used as fallback in case the config server is unavailable
+spring:
+  jpa:
+    database: "POSTGRESQL"
+    show-sql: "true"
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.PostgreSQLDialect"
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  datasource:
+    platform: "postgres"
+    url: "jdbc:postgresql://licensingservice_database:5432/licenses"
+    username: "postgres"
+    password: "p0stgr@s"
+    testWhileIdle: "true"
+    validationQuery: "SELECT 1"
+  database:
+    driverClassName: "org.postgresql.Driver"
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: "http://eurekaservice:8761/eureka/"
+example:
+  property: "I AM THE DEFAULT"

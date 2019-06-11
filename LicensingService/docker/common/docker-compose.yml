@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  configservice:
+    image: configservice:latest
+    ports:
+      - "8888:8888"
+    environment:
+      ENCRYPT_KEY: "IMSYMMETRIC"
+  licensingservice_database:
+    build:
+      context: ../../
+      dockerfile: docker/common/Database-Dockerfile
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "p0stgr@s"
+      POSTGRES_DB:       "licenses"
+  licensingservice:
+    build:
+      context: ../../
+      dockerfile: docker/common/Licensingservice-Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      PROFILE: "default"
+      CONFIGSERVER_URI: "http://configservice:8888"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY: "IMSYMMETRIC"
