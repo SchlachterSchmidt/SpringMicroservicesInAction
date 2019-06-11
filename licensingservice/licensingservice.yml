@@ -1,14 +1,29 @@
-example.property: "I AM IN THE DEFAULT"
-spring.jpa.database: "POSTGRESQL"
-spring.datasource.platform:  "postgres"
-spring.jpa.show-sql: "true"
-spring.datasource.driverClassName: "org.postgresql.Driver"
-spring.datasource.url: "jdbc:postgresql://licensingservice_database:5432/licenses"
-spring.datasource.username: "postgres"
-spring.datasource.password: "{cipher}0adb1f9fe2f1ec3421dde8045a76a1d361f06bba3ce11490b2be9846db6608f4"
-spring.datasource.testWhileIdle: "true"
-spring.datasource.validationQuery: "SELECT 1"
-spring.jpa.properties.hibernate.dialect: "org.hibernate.dialect.PostgreSQLDialect"
-redis.server: "redis"
-redis.port: "6379"
-signing.key: "345345fsdfsf5345"
+spring:
+  jpa:
+    database: "POSTGRESQL"
+    show-sql: "true"
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.PostgreSQLDialect"
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  datasource:
+    platform: "postgres"
+    url: "jdbc:postgresql://licensingservice_database:5432/licenses"
+    username: "postgres"
+    password: "{cipher}0adb1f9fe2f1ec3421dde8045a76a1d361f06bba3ce11490b2be9846db6608f4"
+    testWhileIdle: "true"
+    validationQuery: "SELECT 1"
+  database:
+    driverClassName: "org.postgresql.Driver"
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: "http://eurekaservice:8761/eureka/"
+example:
+  property: "I AM THE DEFAULT"

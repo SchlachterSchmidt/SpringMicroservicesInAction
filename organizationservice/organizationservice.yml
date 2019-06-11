@@ -1,6 +1,4 @@
 spring:
-  # cloud:
-  #   config:
   jpa:
     database: "POSTGRESQL"
     show-sql: "true"
@@ -19,8 +17,6 @@ spring:
     validationQuery: "SELECT 1"
   database:
     driverClassName: "org.postgresql.Driver"
-example:
-  property: "I AM THE DEFAULT"
 eureka:
   instance:
     preferIpAddress: true
@@ -29,3 +25,5 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: "http://eurekaservice:8761/eureka/"
+example:
+  property: "I AM THE DEFAULT"
