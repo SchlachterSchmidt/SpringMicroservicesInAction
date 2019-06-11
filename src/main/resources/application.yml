@@ -13,7 +13,7 @@ spring:
     platform: "postgres"
     url: "jdbc:postgresql://licensingservice_database:5432/licenses"
     username: "postgres"
-    password: "{cipher}0adb1f9fe2f1ec3421dde8045a76a1d361f06bba3ce11490b2be9846db6608f4"
+    password: "p0stgr@s"
     testWhileIdle: "true"
     validationQuery: "SELECT 1"
   database:
