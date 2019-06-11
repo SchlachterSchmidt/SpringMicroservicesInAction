@@ -1,0 +1,70 @@
+version: "3.7"
+services:
+  configservice:
+    build:
+      context: ConfigService
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    environment:
+      ENCRYPT_KEY: "IMSYMMETRIC"
+  eurekaservice:
+    build:
+      context: EurekaService
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    depends_on:
+      - "configservice"
+  licensingservice_database:
+    build:
+      context: LicensingService
+      dockerfile: docker/common/Database-Dockerfile
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "p0stgr@s"
+      POSTGRES_DB:       "licenses"
+  organizationservice_database:
+    build:
+      context: OrganizationService
+      dockerfile: docker/common/Database-Dockerfile
+    ports:
+      - "5431:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "p0stgr@s"
+      POSTGRES_DB:       "organizations"
+  licensingservice:
+    build:
+      context: LicensingService
+      dockerfile: docker/common/Licensingservice-Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      PROFILE: "default"
+      CONFIGSERVER_URI: "http://configservice:8888"
+      EUREKASERVER_URI: "http://eurekaservice:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      CONFIGSERVER_PORT: "8888"
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY: "IMSYMMETRIC"
+    depends_on:
+      - "configservice"
+      - "eurekaservice"
+      - "licensingservice_database"
+  organizationservice:
+    build:
+      context: OrganizationService
+      dockerfile: docker/common/OrganizationService-Dockerfile
+    ports:
+      - "8081:8080"
+    environment:
+      PROFILE: "default"
+      CONFIGSERVER_URI: "http://configservice:8888"
+      EUREKASERVER_URI: "http://eurekaservice:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      CONFIGSERVER_PORT: "8888"
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY: "IMSYMMETRIC"
