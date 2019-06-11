@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
@@ -16,6 +18,11 @@ public class LicensingServiceController {
 
     @Autowired
     LicenseService service;
+
+    @RequestMapping(method = GET)
+    public List<License> getLicensesByOrganization(@PathVariable("organizationId") String organizationId) {
+        return service.getLicensesByOrganization(organizationId);
+    }
 
     @RequestMapping(value="/{licenseId}/{clientType}", method = GET)
     public License getLicense(@PathVariable("organizationId") String organizationId,
