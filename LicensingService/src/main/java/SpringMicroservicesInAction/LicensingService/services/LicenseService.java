@@ -68,7 +68,13 @@ public class LicenseService {
         return organization;
     }
 
-    @HystrixCommand(fallbackMethod = "buildFallbackLicenseList")
+    @HystrixCommand(
+            fallbackMethod = "buildFallbackLicenseList",
+            threadPoolKey = "licenseByOrgThreadPool",
+            threadPoolProperties = {
+                    @HystrixProperty(name = "coreSize",value="30"),
+                    @HystrixProperty(name="maxQueueSize", value="10")}
+    )
     public List<License> getLicensesByOrganization(String organizationId) {
         randomSleep();
         return repository.findByOrganizationId(organizationId);
