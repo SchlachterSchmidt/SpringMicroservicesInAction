@@ -29,6 +29,6 @@ logging:
   level:
     com.netflix: WARN
     org.springframework.web: WARN
-    SpringMicroservicesInAction: DEBUG
+    SpringMicroservicesInAction.LicensingService: DEBUG
 example:
   property: "I AM THE DEFAULT"
