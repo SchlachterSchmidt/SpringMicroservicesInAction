@@ -8,8 +8,11 @@ import SpringMicroservicesInAction.LicensingService.models.License;
 import SpringMicroservicesInAction.LicensingService.models.Organization;
 import SpringMicroservicesInAction.LicensingService.repository.LicenseRepository;
 import SpringMicroservicesInAction.LicensingService.types.ClientType;
+import SpringMicroservicesInAction.LicensingService.utils.UserContextHolder;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,8 @@ import java.util.UUID;
 
 @Service
 public class LicenseService {
+
+    private static final Logger logger = LoggerFactory.getLogger(LicenseService.class);
 
     @Autowired
     private LicenseRepository repository;
@@ -38,6 +43,7 @@ public class LicenseService {
 
     @HystrixCommand(commandProperties = {@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "700")})
     public License getLicense(String organizationId, String licenseId, ClientType clientType) {
+
         // simulating a slow call to the database with a 1 in 3 chance of the call taking more than 1 second
         randomSleep();
 
@@ -73,9 +79,17 @@ public class LicenseService {
             threadPoolKey = "licenseByOrgThreadPool",
             threadPoolProperties = {
                     @HystrixProperty(name = "coreSize",value="30"),
-                    @HystrixProperty(name="maxQueueSize", value="10")}
+                    @HystrixProperty(name="maxQueueSize", value="10")},
+            commandProperties={
+                    @HystrixProperty(name="circuitBreaker.requestVolumeThreshold", value="10"),
+                    @HystrixProperty(name="circuitBreaker.errorThresholdPercentage", value="75"),
+                    @HystrixProperty(name="circuitBreaker.sleepWindowInMilliseconds", value="7000"),
+                    @HystrixProperty(name="metrics.rollingStats.timeInMilliseconds", value="15000"),
+                    @HystrixProperty(name="metrics.rollingStats.numBuckets", value="5")}
     )
     public List<License> getLicensesByOrganization(String organizationId) {
+        logger.debug("LicenseService.getLicensesByOrganization  Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
+
         randomSleep();
         return repository.findByOrganizationId(organizationId);
     }
