@@ -18,6 +18,13 @@ spring:
     validationQuery: "SELECT 1"
   database:
     driverClassName: "org.postgresql.Driver"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: env, health, metrics, info
+
 eureka:
   instance:
     preferIpAddress: true
@@ -31,5 +38,29 @@ logging:
     com.netflix: WARN
     org.springframework.web: WARN
     SpringMicroservicesInAction.LicensingService: DEBUG
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
+    getLicensesByOrganizationCommand:
+      circuitBreaker:
+        requestVolumeThreshold: 5
+        errorThresholdPercentage: 70
+    getLicenseCommand:
+      circuitBreaker:
+        requestVolumeThreshold: 10
+        errorThresholdPercentage: 80
+  threadpool:
+    getLicensesByOrganizationThreadPool:
+      coreSize: 20
+      maxQueueSize: 10
+    getLicenseThreadPool:
+      coreSize: 30
+      maxQueueSize: 20
+
 example:
   property: "I AM THE DEFAULT"
