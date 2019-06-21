@@ -14,7 +14,7 @@ object UserContextHolder {
 
     private fun createEmptyContext() = UserContext
 
-    private fun setContext(context: UserContext) {
+    fun setContext(context: UserContext) {
         userContext.set(context)
     }
 }
