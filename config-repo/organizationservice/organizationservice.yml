@@ -1,7 +1,4 @@
-# this is the default config that will be loaded in case the config service does not provide a config
 spring:
-  # cloud:
-  #   config:
   jpa:
     database: "POSTGRESQL"
     show-sql: "true"
@@ -38,6 +35,7 @@ hystrix:
     default:
       execution:
         isolation:
+          strategy: THREAD
           thread:
             timeoutInMilliseconds: 1000
     updateOrganizationCommandKey:
@@ -46,6 +44,9 @@ hystrix:
         errorThresholdPercentage: 70
   threadpool:
     updateOrganizationThreadPool:
+      coreSize: 20
+      maxQueueSize: 10
+    getOrganizationThreadPool:
       coreSize: 20
       maxQueueSize: 10
 
