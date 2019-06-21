@@ -1,4 +1,7 @@
+# this is the default config that will be loaded in case the config service does not provide a config
 spring:
+  # cloud:
+  #   config:
   jpa:
     database: "POSTGRESQL"
     show-sql: "true"
@@ -17,6 +20,10 @@ spring:
     validationQuery: "SELECT 1"
   database:
     driverClassName: "org.postgresql.Driver"
+
+example:
+  property: "I AM THE DEFAULT"
+
 eureka:
   instance:
     preferIpAddress: true
@@ -25,5 +32,25 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: "http://eurekaservice:8761/eureka/"
-example:
-  property: "I AM THE DEFAULT"
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
+    updateOrganizationCommandKey:
+      circuitBreaker:
+        requestVolumeThreshold: 5
+        errorThresholdPercentage: 70
+  threadpool:
+    updateOrganizationThreadPool:
+      coreSize: 20
+      maxQueueSize: 10
+
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    SpringMicroservicesInAction.OrganizationService: DEBUG
