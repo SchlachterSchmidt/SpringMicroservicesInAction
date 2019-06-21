@@ -27,7 +27,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.cloud:spring-cloud-starter-config")
 	implementation("org.springframework.cloud:spring-cloud-config-client:2.1.2.RELEASE")
-	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.1.1.RELEASE")
+	implementation("org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.1.1.RELEASE")
 	implementation("org.springframework.security:spring-security-rsa:1.0.8.RELEASE")
 	implementation("org.postgresql:postgresql:42.2.5")
 
@@ -45,4 +46,8 @@ tasks.withType<KotlinCompile> {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "1.8"
 	}
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+	languageVersion = "1.3"
 }
