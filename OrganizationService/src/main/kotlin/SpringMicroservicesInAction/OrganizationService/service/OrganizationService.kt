@@ -17,10 +17,9 @@ class OrganizationService {
 
     val logger = LoggerFactory.getLogger(OrganizationService::class.java)
 
-    @HystrixCommand(
-            threadPoolKey = "getOrganizationThreadPool"
-    )
+    @HystrixCommand(threadPoolKey = "getOrganizationThreadPool")
     fun getOrganization(organizationId: String): Organization {
+        randomTimeout()
         logger.debug("OrganizationService.getOrganization Correlation id: ${UserContextHolder.getContext().correlationId}")
         return organizationRepository.getById(organizationId)
     }

@@ -38,6 +38,7 @@ hystrix:
     default:
       execution:
         isolation:
+          strategy: THREAD
           thread:
             timeoutInMilliseconds: 1000
     updateOrganizationCommandKey:
@@ -46,6 +47,9 @@ hystrix:
         errorThresholdPercentage: 70
   threadpool:
     updateOrganizationThreadPool:
+      coreSize: 20
+      maxQueueSize: 10
+    getOrganizationThreadPool:
       coreSize: 20
       maxQueueSize: 10
 
