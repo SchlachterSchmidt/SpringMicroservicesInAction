@@ -1,0 +1,17 @@
+server:
+  port: 5555
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: "http://eurekaservice:8761/eureka/"
+
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    SpringMicroservicesInAction.GatewayService: DEBUG
