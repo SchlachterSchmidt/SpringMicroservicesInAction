@@ -1,5 +1,7 @@
 version: "3.7"
 services:
+
+  # CONFIGSERVICE
   configservice:
     build:
       context: ConfigService
@@ -8,6 +10,8 @@ services:
       - "8888:8888"
     environment:
       ENCRYPT_KEY: "IMSYMMETRIC"
+
+  # EUREKASERVICE
   eurekaservice:
     build:
       context: EurekaService
@@ -16,6 +20,25 @@ services:
       - "8761:8761"
     depends_on:
       - "configservice"
+
+  # GATEWAYSERVICE
+  gatewayservice:
+    build:
+      context: GatewayService
+      dockerfile: Dockerfile
+    ports:
+      - "5555:5555"
+    depends_on:
+      - "configservice"
+      - "eurekaservice"
+    environment:
+      PROFILE: "default"
+      CONFIGSERVER_URI: "http://configservice:8888"
+      EUREKASERVER_URI: "http://eurekaservice:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      CONFIGSERVER_PORT: "8888"
+
+  # LICENSINGSERVICE-DATABASE
   licensingservice_database:
     build:
       context: LicensingService
@@ -26,6 +49,8 @@ services:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "p0stgr@s"
       POSTGRES_DB:       "licenses"
+
+  # ORGANIZATIONSERVICE-DATABASE
   organizationservice_database:
     build:
       context: OrganizationService
@@ -36,6 +61,8 @@ services:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "p0stgr@s"
       POSTGRES_DB:       "organizations"
+
+  # LICENSINGSERVICE
   licensingservice:
     build:
       context: LicensingService
@@ -54,6 +81,8 @@ services:
       - "configservice"
       - "eurekaservice"
       - "licensingservice_database"
+
+  # ORGANIZATIONSERVICE
   organizationservice:
     build:
       context: OrganizationService
@@ -68,3 +97,7 @@ services:
       CONFIGSERVER_PORT: "8888"
       DATABASESERVER_PORT: "5432"
       ENCRYPT_KEY: "IMSYMMETRIC"
+    depends_on:
+      - "configservice"
+      - "eurekaservice"
+      - "organizationservice_database"
