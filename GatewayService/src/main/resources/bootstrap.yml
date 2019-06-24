@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: gatewayservice
+  profiles:
+    active: default
+  cloud:
+    config:
+      enabled: true
+
+zuul:
+  prefix: /api
