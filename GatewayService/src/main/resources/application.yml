@@ -16,3 +16,12 @@ logging:
     com.netflix: WARN
     org.springframework.web: WARN
     SpringMicroservicesInAction.GatewayService: DEBUG
+
+zuul:
+  prefix:  /api
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

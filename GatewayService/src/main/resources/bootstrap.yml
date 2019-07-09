@@ -6,6 +6,3 @@ spring:
   cloud:
     config:
       enabled: true
-
-zuul:
-  prefix: /api
