@@ -2,6 +2,7 @@ package SpringMicroservicesInAction.GatewayService.filters
 
 import com.netflix.zuul.ZuulFilter
 import com.netflix.zuul.context.RequestContext
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -12,11 +13,11 @@ class TrackingFilter : ZuulFilter() {
     @Autowired
     lateinit var filterUtils: FilterUtils
 
-    private val logger = LoggerFactory.getLogger(TrackingFilter::class.java)
+    private val logger: Logger = LoggerFactory.getLogger(TrackingFilter::class.java)
 
     override fun shouldFilter(): Boolean = true
 
-    override fun filterType(): String = FilterType.PRE.toString()
+    override fun filterType(): String = FilterType.PRE.type
 
     override fun filterOrder(): Int = 1
 
