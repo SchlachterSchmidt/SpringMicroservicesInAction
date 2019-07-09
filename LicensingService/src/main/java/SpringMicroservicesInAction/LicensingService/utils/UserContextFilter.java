@@ -23,7 +23,7 @@ public class UserContextFilter implements Filter {
         UserContextHolder.getContext().setOrgId(request.getHeader(UserContext.ORG_ID));
         UserContextHolder.getContext().setUserId(request.getHeader(UserContext.USER_ID));
 
-        logger.debug("UserContextFilter Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
+        logger.debug("incoming correlation id: {}", UserContextHolder.getContext().getCorrelationId());
 
         chain.doFilter(request, servletResponse);
     }
