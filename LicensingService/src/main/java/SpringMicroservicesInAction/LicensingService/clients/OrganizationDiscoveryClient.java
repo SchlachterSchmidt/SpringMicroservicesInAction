@@ -1,6 +1,7 @@
 package SpringMicroservicesInAction.LicensingService.clients;
 
 import SpringMicroservicesInAction.LicensingService.models.Organization;
+import SpringMicroservicesInAction.LicensingService.utils.UserContextInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -19,6 +20,12 @@ public class OrganizationDiscoveryClient {
 
     public Organization getOrganization(String organizationId) {
         RestTemplate restTemplate = new RestTemplate();
+
+        List interceptors = restTemplate.getInterceptors();
+
+        interceptors.add(new UserContextInterceptor());
+        restTemplate.setInterceptors(interceptors);
+
         List<ServiceInstance> instances = discoveryClient.getInstances("organizationservice");
 
         if (instances.size() == 0) return null;
