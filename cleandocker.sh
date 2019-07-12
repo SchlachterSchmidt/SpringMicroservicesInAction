@@ -4,10 +4,12 @@ docker container rm \
   springmicroservicesinaction_gatewayservice_1 \
   springmicroservicesinaction_eurekaservice_1 \
   springmicroservicesinaction_configservice_1 \
+  springmicroservicesinaction_authenticationservice_1
 
 docker image rm \
   springmicroservicesinaction_organizationservice \
   springmicroservicesinaction_licensingservice \
   springmicroservicesinaction_gatewayservice \
   springmicroservicesinaction_configservice \
-  springmicroservicesinaction_eurekaservice
+  springmicroservicesinaction_eurekaservice \
+  springmicroservicesinaction_authenticationservice

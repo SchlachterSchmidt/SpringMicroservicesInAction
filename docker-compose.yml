@@ -38,6 +38,23 @@ services:
       EUREKASERVER_PORT: "8761"
       CONFIGSERVER_PORT: "8888"
 
+  # AUTHENTICATIONSERVICE
+  authenticationservice:
+    build:
+      context: AuthenticationService
+      dockerfile: Dockerfile
+    ports:
+      - "8901:8901"
+    depends_on:
+      - "configservice"
+      - "eurekaservice"
+    environment:
+      PROFILE: "default"
+      CONFIGSERVER_URI: "http://configservice:8888"
+      EUREKASERVER_URI: "http://eurekaservice:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      CONFIGSERVER_PORT: "8888"
+
   # LICENSINGSERVICE-DATABASE
   licensingservice_database:
     build:

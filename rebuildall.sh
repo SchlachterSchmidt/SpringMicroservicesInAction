@@ -1,4 +1,7 @@
-cd ConfigService
+cd AuthenticationService
+./gradlew clean build
+
+cd ../ConfigService
 ./gradlew clean build
 
 cd ../EurekaService
