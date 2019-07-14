@@ -2,6 +2,7 @@ package SpringMicroservicesInAction.AuthenticationService
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer
 import org.springframework.security.oauth2.provider.OAuth2Authentication
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @SpringBootApplication
 @RestController
+@EnableEurekaClient
 @EnableResourceServer
 @EnableAuthorizationServer
 class AuthenticationServiceApplication {
