@@ -59,4 +59,4 @@ logging:
 security:
   oauth2:
     resource:
-      userInfoUri: "http://authenticationservice/user"
+      userInfoUri: "http://authenticationservice:8901/user"
