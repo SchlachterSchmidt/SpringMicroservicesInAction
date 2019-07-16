@@ -56,3 +56,8 @@ logging:
     com.netflix: WARN
     org.springframework.web: WARN
     SpringMicroservicesInAction.OrganizationService: DEBUG
+
+security:
+  oauth2:
+    resource:
+      userInfoUri: "http://authenticationservice/user"
