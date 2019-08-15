@@ -13,7 +13,6 @@ import org.springframework.web.client.RestTemplate
 @SpringBootApplication
 @EnableEurekaClient
 @EnableCircuitBreaker
-//@EnableResourceServer
 class OrganizationServiceApplication {
 
 	@Bean
