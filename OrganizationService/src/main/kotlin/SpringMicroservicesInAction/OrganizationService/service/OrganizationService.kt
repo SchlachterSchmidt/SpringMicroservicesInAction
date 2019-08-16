@@ -1,5 +1,6 @@
 package SpringMicroservicesInAction.OrganizationService.service
 
+import SpringMicroservicesInAction.OrganizationService.events.source.SimpleSourceBean
 import SpringMicroservicesInAction.OrganizationService.models.Organization
 import SpringMicroservicesInAction.OrganizationService.repository.OrganizationRepository
 import SpringMicroservicesInAction.OrganizationService.utils.UserContextHolder
@@ -15,6 +16,9 @@ class OrganizationService {
     @Autowired
     lateinit var organizationRepository: OrganizationRepository
 
+    @Autowired
+    lateinit var simpleSourceBean: SimpleSourceBean
+
     val logger = LoggerFactory.getLogger(OrganizationService::class.java)
 
     @HystrixCommand(threadPoolKey = "getOrganizationThreadPool")
@@ -29,15 +33,21 @@ class OrganizationService {
             commandKey = "updateOrganizationCommandKey",
             threadPoolKey = "updateOrganizationThreadPool")
     fun updateOrganization(organizationId: String, organization: Organization): Organization {
-        randomTimeout()
-        return organizationRepository.save(organization)
+        val updatedOrg = organizationRepository.save(organization)
+        simpleSourceBean.publishOrgChange("UPDATE", organizationId)
+        return updatedOrg
     }
 
     private fun fallbackUpdate(organizationId: String, organization: Organization) =
             Organization(id = "000-000-00", name = "update not saved", contactEmail = "", contactName = "", contactPhone = "")
 
     @HystrixCommand
-    fun saveOrganization(organization: Organization): Organization = organizationRepository.save(organization)
+    fun saveOrganization(organization: Organization): Organization {
+        val orgToSave = organization.copy(id = UUID.randomUUID().toString())
+        val savedOrg = organizationRepository.save(orgToSave)
+        simpleSourceBean.publishOrgChange("SAVE", savedOrg.id)
+        return savedOrg
+    }
 
     @HystrixCommand
     fun deleteOrganization(organization: Organization) = organizationRepository.delete(organization)

@@ -7,7 +7,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "organizations")
-class Organization(
+data class Organization(
         @Id @Column(name = "organization_id", nullable = false) val id: String,
         @Column(name = "name") val name: String,
         @Column(name = "contact_name") val contactName: String,
