@@ -26,8 +26,8 @@ spring:
           content-type: application/json
       kafka:
         binder:
-          zkNodes: kafkaserver
-          brokers: kafkaserver
+          zkNodes: "http://kafkaserver:2181"
+          brokers: "http://kafkaserver:9092"
 
 example:
   property: "I AM THE DEFAULT"
