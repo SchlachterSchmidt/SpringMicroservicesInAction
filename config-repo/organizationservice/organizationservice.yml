@@ -64,5 +64,6 @@ hystrix:
 logging:
   level:
     com.netflix: WARN
+    org.springframework.cloud: DEBUG
     org.springframework.web: WARN
     SpringMicroservicesInAction.OrganizationService: DEBUG
