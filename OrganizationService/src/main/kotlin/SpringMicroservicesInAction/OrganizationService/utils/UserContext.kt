@@ -1,6 +1,6 @@
 package SpringMicroservicesInAction.OrganizationService.utils
 
-object  UserContext {
+object UserContext {
     const val CORRELATION_ID = "tmx-correlation-id"
     const val AUTH_TOKEN = "tmx-auth-token"
     const val USER_ID = "tmx-user-id"

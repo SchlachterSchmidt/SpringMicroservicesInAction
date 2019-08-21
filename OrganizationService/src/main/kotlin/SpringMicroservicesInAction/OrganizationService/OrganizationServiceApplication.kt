@@ -1,6 +1,5 @@
 package SpringMicroservicesInAction.OrganizationService
 
-import SpringMicroservicesInAction.OrganizationService.utils.UserContextFilter
 import SpringMicroservicesInAction.OrganizationService.utils.UserContextInterceptor
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -11,16 +10,12 @@ import org.springframework.cloud.stream.annotation.EnableBinding
 import org.springframework.cloud.stream.messaging.Source
 import org.springframework.context.annotation.Bean
 import org.springframework.web.client.RestTemplate
-import javax.servlet.Filter
 
 @SpringBootApplication
 @EnableEurekaClient
 @EnableBinding(Source::class)
 @EnableCircuitBreaker
 class OrganizationServiceApplication {
-
-	@Bean
-	fun userContextFilter(): Filter = UserContextFilter()
 
 	@Bean
 	@LoadBalanced

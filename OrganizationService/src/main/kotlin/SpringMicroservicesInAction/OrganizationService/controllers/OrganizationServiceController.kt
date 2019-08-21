@@ -30,7 +30,7 @@ class OrganizationServiceController {
         return organizationService.updateOrganization(organizationId, organization)
     }
 
-    @RequestMapping("/{organizationId}", method = arrayOf(POST))
+    @RequestMapping(method = arrayOf(POST))
     fun saveOrganization(@RequestBody organization: Organization): Organization {
         return organizationService.saveOrganization(organization)
     }

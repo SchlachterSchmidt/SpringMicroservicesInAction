@@ -30,10 +30,9 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-config")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.1.1.RELEASE")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.1.1.RELEASE")
-	implementation("org.springframework.cloud:spring-cloud-stream:2.2.0.RELEASE")
-	implementation("org.springframework.cloud:spring-cloud-starter-stream-kafka:2.2.0.RELEASE")
-
-
+	implementation("org.springframework.cloud:spring-cloud-stream:2.1.1.RELEASE")
+	implementation("org.springframework.cloud:spring-cloud-starter-stream-kafka:2.1.1.RELEASE")
+	
 	implementation("org.springframework.security:spring-security-rsa:1.0.8.RELEASE")
 	
 	implementation("org.postgresql:postgresql:42.2.5")
