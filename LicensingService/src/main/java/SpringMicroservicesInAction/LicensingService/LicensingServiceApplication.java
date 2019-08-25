@@ -31,7 +31,7 @@ import java.util.List;
 @EnableFeignClients
 @EnableCircuitBreaker
 @RefreshScope
-@EnableBinding(Sink.class)
+//@EnableBinding(Sink.class)
 public class LicensingServiceApplication {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -65,10 +65,10 @@ public class LicensingServiceApplication {
 		return template;
 	}
 
-	@StreamListener(Sink.INPUT)
-	public void loggerSink(OrganizationChangeModel organizationChangeModel) {
-		logger.debug("Received event for organization id: {}", organizationChangeModel.getOrganizationId());
-	}
+//	@StreamListener(Sink.INPUT)
+//	public void loggerSink(OrganizationChangeModel organizationChangeModel) {
+//		logger.debug("Received event for organization id: {}", organizationChangeModel.getOrganizationId());
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(LicensingServiceApplication.class, args);
