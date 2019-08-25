@@ -40,14 +40,16 @@ public class LicenseService {
     @Autowired
     private OrganizationFeignClient organizationFeignClient;
 
+    @Autowired
+    private ServiceConfig serviceConfig;
+
     @HystrixCommand(
             fallbackMethod = "buildFallbackLicense",
             commandKey = "getLicenseCommand",
             threadPoolKey = "getLicenseThreadPool"
     )
     public License getLicense(String organizationId, String licenseId, ClientType clientType) {
-        // simulating a slow call to the database with a 1 in 3 chance of the call taking more than 1 second
-        randomSleep();
+        if (serviceConfig.randomTimeoutIsEnabled()) randomSleep();
 
         Organization organization = getOrganizationByIdWithClient(organizationId, clientType);
 
@@ -87,7 +89,7 @@ public class LicenseService {
             threadPoolKey = "getLicensesByOrganizationThreadPool")
     public List<License> getLicensesByOrganization(String organizationId) {
         logger.debug("LicenseService.getLicensesByOrganization  Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
-        randomSleep();
+        if (serviceConfig.randomTimeoutIsEnabled()) randomSleep();
 
         return repository.findByOrganizationId(organizationId);
     }
@@ -116,6 +118,7 @@ public class LicenseService {
     }
 
     private void randomSleep() {
+        // simulating a slow call to the database with a 1 in 3 chance of the call taking more than 1 second
         Random random =new Random();
         int randomInt = random.nextInt((3 - 1) + 1) + 1;
         if (randomInt == 3) sleep();

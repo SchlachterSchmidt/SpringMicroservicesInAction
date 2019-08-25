@@ -14,6 +14,9 @@ public class ServiceConfig {
     @Value("${spring.redis.port}")
     private String redisPort = "";
 
+    @Value("${application.timeout.enabled}")
+    private String randomTimeoutEnabled = "";
+
     public String getExampleProperty() {
         return exampleProperty;
     }
@@ -24,5 +27,9 @@ public class ServiceConfig {
 
     public int getRedisPort() {
         return new Integer(redisPort).intValue();
+    }
+
+    public boolean randomTimeoutIsEnabled() {
+        return Boolean.parseBoolean(randomTimeoutEnabled);
     }
 }
