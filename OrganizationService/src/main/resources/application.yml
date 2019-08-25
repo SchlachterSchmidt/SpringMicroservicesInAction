@@ -68,3 +68,7 @@ logging:
     org.springframework.cloud: DEBUG
     org.springframework.web: WARN
     SpringMicroservicesInAction.OrganizationService: DEBUG
+
+application:
+  timeout:
+    enabled: false

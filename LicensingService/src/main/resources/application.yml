@@ -81,3 +81,7 @@ hystrix:
 example:
   property: "I AM THE DEFAULT"
 
+application:
+  timeout:
+    enabled: false
+
