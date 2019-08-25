@@ -18,6 +18,9 @@ spring:
     validationQuery: "SELECT 1"
   database:
     driverClassName: "org.postgresql.Driver"
+  redis:
+    server: redis
+    port: 6379
 
   cloud:
     stream:
@@ -81,3 +84,4 @@ hystrix:
 
 example:
   property: "I AM THE DEFAULT"
+
