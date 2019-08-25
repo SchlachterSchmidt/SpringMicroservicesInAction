@@ -41,8 +41,8 @@ public class OrganizationRedisRepositoryImpl implements OrganizationRedisReposit
     }
 
     @Override
-    public void deleteOrganization(Organization organization) {
-        hashOperations.delete(HASH_NAME, organization.getId(), organization);
+    public void deleteOrganization(String organizationId) {
+        hashOperations.delete(HASH_NAME, organizationId);
     }
 
     @Override

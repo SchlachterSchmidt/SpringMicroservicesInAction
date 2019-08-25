@@ -7,7 +7,7 @@ public interface OrganizationRedisRepository {
 
     void updateOrganization(Organization organization);
 
-    void deleteOrganization(Organization organization);
+    void deleteOrganization(String organizationId);
 
     Organization findOrganization(String organizationId);
 }
