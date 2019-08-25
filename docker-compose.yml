@@ -65,7 +65,7 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "p0stgr@s"
-      POSTGRES_DB:       "licenses"
+      POSTGRES_DB: "licenses"
 
   # ORGANIZATIONSERVICE-DATABASE
   organizationservice_database:
@@ -77,7 +77,7 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "p0stgr@s"
-      POSTGRES_DB:       "organizations"
+      POSTGRES_DB: "organizations"
 
   # LICENSINGSERVICE
   licensingservice:
@@ -95,6 +95,7 @@ services:
       EUREKASERVER_PORT: "8761"
       CONFIGSERVER_PORT: "8888"
       KAFKASERVER_PORT: "2181"
+      REDIS_PORT: "6379"
       DATABASESERVER_PORT: "5432"
       ENCRYPT_KEY: "IMSYMMETRIC"
     depends_on:
@@ -134,3 +135,9 @@ services:
     ports:
       - "2181:2181"
       - "9092:9092"
+
+  # REDIS
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
