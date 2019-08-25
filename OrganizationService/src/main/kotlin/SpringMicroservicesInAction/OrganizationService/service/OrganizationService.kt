@@ -1,5 +1,6 @@
 package SpringMicroservicesInAction.OrganizationService.service
 
+import SpringMicroservicesInAction.OrganizationService.config.ServiceConfig
 import SpringMicroservicesInAction.OrganizationService.events.source.SimpleSourceBean
 import SpringMicroservicesInAction.OrganizationService.models.Organization
 import SpringMicroservicesInAction.OrganizationService.repository.OrganizationRepository
@@ -19,11 +20,14 @@ class OrganizationService {
     @Autowired
     lateinit var simpleSourceBean: SimpleSourceBean
 
+    @Autowired
+    lateinit var serviceConfig: ServiceConfig
+
     val logger = LoggerFactory.getLogger(OrganizationService::class.java)
 
     @HystrixCommand(threadPoolKey = "getOrganizationThreadPool")
     fun getOrganization(organizationId: String): Organization {
-        randomTimeout()
+        if (serviceConfig.randomTimeoutIsEnabled()) randomTimeout()
         logger.debug("OrganizationService.getOrganization Correlation id: ${UserContextHolder.getContext().correlationId}")
         return organizationRepository.getById(organizationId)
     }
