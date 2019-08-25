@@ -28,6 +28,7 @@ dependencies {
 
 	implementation("org.springframework.cloud:spring-cloud-config-client:2.1.2.RELEASE")
 	implementation("org.springframework.cloud:spring-cloud-starter-config")
+	implementation("org.springframework.cloud:spring-cloud-starter-sleuth:2.1.2.RELEASE")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.1.1.RELEASE")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.1.1.RELEASE")
 	implementation("org.springframework.cloud:spring-cloud-stream:2.1.1.RELEASE")
