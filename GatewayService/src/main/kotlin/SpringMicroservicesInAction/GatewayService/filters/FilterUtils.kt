@@ -50,5 +50,6 @@ enum class HeaderNames(val headerName: String) {
     CORRELATION_ID_HEADER("tmx-correlation-id"),
     ORG_ID_HEADER("tmx-org-id"),
     USER_ID_HEADER("tmx-user-id"),
-    AUTH_TOKEN_HEADER("tmx-auth-token")
+    AUTH_TOKEN_HEADER("tmx-auth-token"),
+    SLEUTH_TRACE_HEADER("sleuth-trace-header")
 }
