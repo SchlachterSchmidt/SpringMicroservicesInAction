@@ -1,0 +1,7 @@
+FROM openjdk:8-jdk-alpine
+RUN apk update && apk upgrade
+RUN mkdir -p /usr/local/ZipkinService
+ADD build/libs/ZipkinService-0.0.1-SNAPSHOT.jar /usr/local/ZipkinService/
+ADD docker/common/run.sh run.sh
+RUN chmod +x run.sh
+CMD ./run.sh
