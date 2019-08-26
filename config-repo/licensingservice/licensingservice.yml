@@ -21,7 +21,6 @@ spring:
   redis:
      host: redis
      port: 6379
-
   cloud:
     stream:
       bindings:
@@ -33,6 +32,11 @@ spring:
         binder:
           zkNodes: "http://kafkaserver:2181"
           brokers: "http://kafkaserver:9092"
+  zipkin:
+    baseUrl: "http://zipkin:9411"
+  sleuth:
+    sampler:
+      percentage: 1
 
 management:
   endpoints:

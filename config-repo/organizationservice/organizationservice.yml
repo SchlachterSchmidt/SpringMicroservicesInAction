@@ -17,7 +17,6 @@ spring:
     validationQuery: "SELECT 1"
   database:
     driverClassName: "org.postgresql.Driver"
-
   cloud:
     stream:
       bindings:
@@ -28,6 +27,11 @@ spring:
         binder:
           zkNodes: "http://kafkaserver:2181"
           brokers: "http://kafkaserver:9092"
+  zipkin:
+    baseUrl: "http://zipkin:9411"
+  sleuth:
+    sampler:
+      percentage: 1
 
 example:
   property: "I AM THE DEFAULT"
