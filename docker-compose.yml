@@ -141,3 +141,10 @@ services:
     image: redis:alpine
     ports:
       - 6379:6379
+
+# LOGSPOUT
+  logspout:
+    image: gliderlabs/logspout
+    command: syslog+tls://logs2.papertrailapp.com:54694
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
