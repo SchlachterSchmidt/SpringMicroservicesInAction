@@ -20,11 +20,14 @@ extra["springCloudVersion"] = "Greenwich.SR1"
 dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	implementation("org.springframework.cloud:spring-cloud-starter-config")
+	
 	implementation("org.springframework.cloud:spring-cloud-config-client:2.1.2.RELEASE")
+	implementation("org.springframework.cloud:spring-cloud-sleuth-zipkin:2.1.2.RELEASE")
+	implementation("org.springframework.cloud:spring-cloud-starter-config")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.1.1.RELEASE")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-zuul")
 	implementation("org.springframework.cloud:spring-cloud-starter-sleuth:2.1.2.RELEASE")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
