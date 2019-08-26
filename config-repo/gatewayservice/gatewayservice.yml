@@ -28,6 +28,6 @@ management:
 spring:
   sleuth:
     sampler:
-      percentage: 1
+      probability: 1.0
   zipkin:
     baseUrl: "http://zipkin:9411"

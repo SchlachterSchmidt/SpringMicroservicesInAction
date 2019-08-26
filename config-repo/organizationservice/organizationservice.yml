@@ -31,7 +31,7 @@ spring:
     baseUrl: "http://zipkin:9411"
   sleuth:
     sampler:
-      percentage: 1
+      probability: 1.0
 
 example:
   property: "I AM THE DEFAULT"
