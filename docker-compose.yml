@@ -142,9 +142,21 @@ services:
     ports:
       - 6379:6379
 
-# LOGSPOUT
+  # LOGSPOUT
   logspout:
     image: gliderlabs/logspout
     command: syslog+tls://logs2.papertrailapp.com:54694
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  # ZIPKIN
+  zipkin:
+    # there is currently a bug with zipkin, use of prebuild docker image is recommended
+    # build:
+    #   context: ZipkinService
+    #   dockerfile: docker/common/ZipkinService-Dockerfile
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    environment:
+      SERVER_PORT: "9411"
