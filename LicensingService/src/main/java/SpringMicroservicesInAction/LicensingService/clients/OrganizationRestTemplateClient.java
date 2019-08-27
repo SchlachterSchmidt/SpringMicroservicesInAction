@@ -2,6 +2,8 @@ package SpringMicroservicesInAction.LicensingService.clients;
 
 import SpringMicroservicesInAction.LicensingService.models.Organization;
 import SpringMicroservicesInAction.LicensingService.repository.OrganizationRedisRepository;
+import brave.Span;
+import brave.Tracer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class OrganizationRestTemplateClient {
 
     @Autowired
     OrganizationRedisRepository redisRepository;
+
+    @Autowired
+    Tracer tracer;
 
     private static final Logger logger = LoggerFactory.getLogger(OrganizationRestTemplateClient.class);
 
@@ -45,11 +50,16 @@ public class OrganizationRestTemplateClient {
      }
 
     private Organization checkRedisForOrganization(String organizationId) {
-        try {
+
+        Span span = tracer.nextSpan().name("getOrganizationDataFromRedis").start();
+        try (Tracer.SpanInScope ws = tracer.withSpanInScope(span)) {
             return redisRepository.findOrganization(organizationId);
         } catch (Exception ex) {
             logger.debug("Error retrieving organization {} from cache: {}", organizationId, ex.getMessage());
+            span.error(ex);
             return null;
+        } finally {
+            span.tag("peer.service", "redis").finish();
         }
     }
 

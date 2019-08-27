@@ -9,6 +9,8 @@ import SpringMicroservicesInAction.LicensingService.models.Organization;
 import SpringMicroservicesInAction.LicensingService.repository.LicenseRepository;
 import SpringMicroservicesInAction.LicensingService.types.ClientType;
 import SpringMicroservicesInAction.LicensingService.utils.UserContextHolder;
+import brave.Span;
+import brave.Tracer;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +45,9 @@ public class LicenseService {
     @Autowired
     private ServiceConfig serviceConfig;
 
+    @Autowired
+    private Tracer tracer;
+
     @HystrixCommand(
             fallbackMethod = "buildFallbackLicense",
             commandKey = "getLicenseCommand",
@@ -53,12 +58,22 @@ public class LicenseService {
 
         Organization organization = getOrganizationByIdWithClient(organizationId, clientType);
 
-        return repository.findByOrganizationIdAndLicenseId(organizationId, licenseId)
-                .withOrganizationName(organization.getName())
-                .withContactEmail(organization.getContactEmail())
-                .withContactName(organization.getContactName())
-                .withContactPhone(organization.getContactPhone())
-                .withComment(config.getExampleProperty());
+        Span span = tracer.nextSpan().name("getLicenseFromDatabase").start();
+        License license = null;
+        try (Tracer.SpanInScope ws = tracer.withSpanInScope(span)) {
+            logger.debug("getting license information from database");
+            license = repository.findByOrganizationIdAndLicenseId(organizationId, licenseId)
+                    .withOrganizationName(organization.getName())
+                    .withContactEmail(organization.getContactEmail())
+                    .withContactName(organization.getContactName())
+                    .withContactPhone(organization.getContactPhone())
+                    .withComment(config.getExampleProperty());
+        } catch (Exception ex) {
+            span.error(ex);
+        } finally {
+            span.tag("peer.service", "postgres").finish();
+        }
+        return license;
     }
 
     private Organization getOrganizationByIdWithClient(String organizationId, ClientType clientType) {
