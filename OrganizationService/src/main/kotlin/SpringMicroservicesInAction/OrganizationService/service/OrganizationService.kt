@@ -5,6 +5,9 @@ import SpringMicroservicesInAction.OrganizationService.events.source.SimpleSourc
 import SpringMicroservicesInAction.OrganizationService.models.Organization
 import SpringMicroservicesInAction.OrganizationService.repository.OrganizationRepository
 import SpringMicroservicesInAction.OrganizationService.utils.UserContextHolder
+import brave.ScopedSpan
+import brave.Span
+import brave.Tracer
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,13 +26,20 @@ class OrganizationService {
     @Autowired
     lateinit var serviceConfig: ServiceConfig
 
+    @Autowired
+    lateinit var tracer: Tracer
+
     val logger = LoggerFactory.getLogger(OrganizationService::class.java)
 
     @HystrixCommand(threadPoolKey = "getOrganizationThreadPool")
     fun getOrganization(organizationId: String): Organization {
         if (serviceConfig.randomTimeoutIsEnabled()) randomTimeout()
         logger.debug("OrganizationService.getOrganization Correlation id: ${UserContextHolder.getContext().correlationId}")
-        return organizationRepository.getById(organizationId)
+
+        val span = tracer.startScopedSpan("getOrganizationFromDatabase")
+        val organization = organizationRepository.getById(organizationId)
+        span.finish()
+        return organization
     }
 
     @HystrixCommand(
